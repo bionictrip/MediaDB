@@ -7,10 +7,12 @@ using System.Web.Mvc;
 using MovieDB.MovieDBShared;
 using MovieDBScanner;
 using PagedList;
+using MovieDBWeb.Models;
 
 
 namespace MovieDB.Controllers
 {
+    [Authorize]
     public class MoviesController : Controller
     {
         //
@@ -156,11 +158,19 @@ namespace MovieDB.Controllers
         //
         // GET: /Movies/Delete/5
 
-        public ActionResult Delete(int id)
+        public ActionResult Delete()
         {
-            MoviesDBScanner mds = new MoviesDBScanner();
+            var model = new DeleteModel() { Message = "Success" };
+            try
+            {
+                MoviesDBScanner mds = new MoviesDBScanner();
+            }
+            catch(Exception e)
+            {
+                model.Message = e.ToString();
+            }
 
-            return new ViewResult();
+            return View(model);
         }
 
         //

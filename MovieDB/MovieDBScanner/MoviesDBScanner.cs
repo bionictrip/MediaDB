@@ -32,14 +32,13 @@ namespace MovieDBScanner
         public MoviesDBScanner()
         {
             Movie[] movies = GetMovies();
-            mdb.Database.ExecuteSqlCommand("delete from Movie;DBCC CHECKIDENT('Movie', RESEED, 0)");
-            mdb.SaveChanges();
-            //_moviesDbContext.Configuration();
-            foreach(Movie movie in movies)
-            {
-                Console.WriteLine("Adding {0} from {1}...", movie.Name, movie.Location);
-                mdb.Movies.Add(movie);
-            }
+            ClearDatabase();
+            WriteToDatabase(movies);
+        }
+
+        private void WriteToDatabase(Movie[] movies)
+        {
+            mdb.Movies.AddRange(movies);
             try
             {
                 Console.WriteLine("Saving...");
@@ -49,6 +48,12 @@ namespace MovieDBScanner
             {
                 throw e;
             }
+        }
+
+        private void ClearDatabase()
+        {
+            mdb.Database.ExecuteSqlCommand("delete from Movie;DBCC CHECKIDENT('Movie', RESEED, 0)");
+            mdb.SaveChanges();
         }
 
         public Movie[] GetMovies()
