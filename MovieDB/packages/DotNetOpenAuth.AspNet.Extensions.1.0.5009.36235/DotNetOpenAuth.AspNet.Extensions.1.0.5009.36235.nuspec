@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>DotNetOpenAuth.AspNet.Extensions</id>
+    <version>1.0.5009.36235</version>
+    <title>DotNetOpenAuth.AspNet.Extensions</title>
+    <authors>NorDroN</authors>
+    <owners>NorDroN</owners>
+    <projectUrl>https://github.com/NorDroN/DotNetOpenAuth.AspNet.Extensions</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Enables web site visitors to log into an ASP.NET web application via popular identity providers, including VKontakte, Odnoklassniki, Foursquare, Instagram, MailRu and other.</description>
+    <releaseNotes />
+    <copyright />
+    <language />
+    <dependencies>
+      <group targetFramework=".NETFramework4.5">
+        <dependency id="Newtonsoft.Json" version="5.0.6" />
+        <dependency id="DotNetOpenAuth.AspNet" version="4.3.1.13153" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>
