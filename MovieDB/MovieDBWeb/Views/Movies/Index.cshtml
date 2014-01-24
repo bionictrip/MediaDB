@@ -1,0 +1,65 @@
+﻿@model PagedList.IPagedList<MovieDB.MovieDBShared.Movie>
+
+@{
+    ViewBag.Title = "Movies";
+}
+@using PagedList.Mvc; 
+@using PagedList;
+<h2>Movies</h2>
+@using (Html.BeginForm("Index", "Movies", routeValues: new {page=1, pageSize = ViewBag.PageSize, sortOrder = ViewBag.CurrentSort }, method: FormMethod.Get))
+{
+    <fieldset>
+        @Html.TextBox("filter", ViewBag.CurrentFilter as string)
+        @Html.Hidden("sortOrder", ViewBag.CurrentSort as string)
+        @Html.Hidden("pageSize", ViewBag.PageSize as string)
+        <input id="submit" type="submit" value="Search"/>
+    </fieldset>
+}
+
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, pageSize = ViewBag.PageSize, sortOrder = ViewBag.CurrentSort, filter = ViewBag.CurrentFilter } ), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+<div class="table-responsive">
+    <table class="table table-striped" >
+        <tr>
+            <th>
+                @Html.ActionLink("ID", "Index", new { page = Model.PageNumber, pageSize = ViewBag.PageSize, sortOrder = ViewBag.CurrentSort == "ID" ? "ID desc" : "ID", filter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Type", "Index", new { page = Model.PageNumber, pageSize = ViewBag.PageSize, sortOrder = ViewBag.CurrentSort == "Type" ? "Type desc" : "Type", filter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Name", "Index", new { page = Model.PageNumber, pageSize = ViewBag.PageSize, sortOrder = ViewBag.CurrentSort == "Name" ? "Name desc" : "Name", filter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Location", "Index", new { page = Model.PageNumber, pageSize = ViewBag.PageSize, sortOrder = ViewBag.CurrentSort == "Location" ? "Location desc" : "Location", filter = ViewBag.CurrentFilter })
+            </th>
+            <th></th>
+        </tr>
+        @{int num = 1;}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @(num++)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+
+                @*<td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    </td>*@
+            </tr>
+        }
+
+    </table>
+</div>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, pageSize = ViewBag.PageSize, sortOrder = ViewBag.CurrentSort, filter = ViewBag.CurrentFilter }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
