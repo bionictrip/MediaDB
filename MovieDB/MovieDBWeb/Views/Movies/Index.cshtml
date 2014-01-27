@@ -6,6 +6,7 @@
 @using PagedList.Mvc; 
 @using PagedList;
 <h2>Movies</h2>
+@Html.ActionLink("Refresh Database", "Delete") 
 @using (Html.BeginForm("Index", "Movies", routeValues: new {page=1, pageSize = ViewBag.PageSize, sortOrder = ViewBag.CurrentSort }, method: FormMethod.Get))
 {
     <fieldset>

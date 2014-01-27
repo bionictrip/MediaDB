@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="MovieMap.cs" />
+    <Compile Include="MovieRepository.cs" />
     <Compile Include="MoviesDBContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
