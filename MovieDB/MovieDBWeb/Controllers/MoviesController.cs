@@ -8,6 +8,7 @@ using MovieDB.MovieDBShared;
 using MovieDBScanner;
 using PagedList;
 using MovieDBWeb.Models;
+using MovieDBRepository;
 
 
 namespace MovieDB.Controllers
@@ -18,14 +19,15 @@ namespace MovieDB.Controllers
         //
         // GET: /Movies/
 
+        MovieRepository mr = new MovieRepository();
 
         public ActionResult Index(int page = 1, int pageSize = 500, string filter = "", string sortOrder="")
         {
-            MoviesDBContext m = new MoviesDBContext();
+         
             ViewBag.CurrentFilter = filter;
             ViewBag.PageSize = pageSize;
 
-            var list = Filter(filter, m);
+            var list = Filter(filter);
             if(ViewBag.CurrentSort == sortOrder)
             { 
                 ViewBag.CurrentSort = sortOrder;
@@ -49,9 +51,9 @@ namespace MovieDB.Controllers
             return View(list.ToPagedList(page, pageSize));
         }
 
-        private static IQueryable<Movie> Filter(string filter, MoviesDBContext m)
+        private IQueryable<Movie> Filter(string filter)
         {
-            var list = m.Movies.AsQueryable();
+            var list = mr.Retrieve();
             var filterList = filter.Split(new char[] { ' ', '+' });
             if (filter != "")
                 list = from items in list
